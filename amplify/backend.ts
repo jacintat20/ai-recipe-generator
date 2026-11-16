@@ -1,7 +1,7 @@
-import { defineBackend } from '@aws-amplify/backend';
-import { auth } from './auth/resource';
-import { data } from './data/resource';
+import { defineBackend } from "@aws-amplify/backend";
+import { data } from "./data/resource";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
+import { auth } from "./auth/resource";
 
 const backend = defineBackend({
   auth,
@@ -22,7 +22,8 @@ const bedrockDataSource = backend.data.resources.graphqlApi.addHttpDataSource(
 bedrockDataSource.grantPrincipal.addToPrincipalPolicy(
   new PolicyStatement({
     resources: [
-      "arn:aws:bedrock:us-east-2::foundation-model/anthropic.claude-sonnet-4-5-20250929-v1:0",
+      "arn:aws:bedrock:us-east-2:*:inference-profile/us.anthropic.claude-sonnet-4-5-*",
+      "arn:aws:bedrock:*::foundation-model/anthropic.claude-sonnet-4-5-*",
     ],
     actions: ["bedrock:InvokeModel"],
   })
