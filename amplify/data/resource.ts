@@ -1,19 +1,20 @@
-import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
+import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 
 const schema = a.schema({
-  BedrockResponse: a.customeType({
+  BedrockResponse: a.customType({
     body: a.string(),
     error: a.string(),
   }),
+
   askBedrock: a
     .query()
     .arguments({ ingredients: a.string().array() })
     .returns(a.ref("BedrockResponse"))
     .authorization((allow) => [allow.authenticated()])
     .handler(
-      a.handler.custome({
+      a.handler.custom({
         entry: "./bedrock.js",
-        dataSource: "bedrockDS"
+        dataSource: "bedrockDS",
       })
     ),
 });
