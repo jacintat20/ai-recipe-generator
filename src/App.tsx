@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { type FormEvent, useState } from "react";
 import { Loader, Placeholder } from "@aws-amplify/ui-react";
 import "./App.css";
 import { Amplify } from "aws-amplify";
@@ -29,7 +29,8 @@ function App() {
       if (!errors) {
         setResult(data?.body || "No data returned");
       } else {
-        console.log(errors);
+        console.log(errors); 
+        setResult(errors[0].message);
       }
     } catch (e) {
       alert(`An error occurred: ${e}`);
